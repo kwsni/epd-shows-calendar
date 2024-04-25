@@ -1,9 +1,9 @@
-import Next from './components/Next.jsx'
+import AgendaView from './components/AgendaView.jsx'
 
 function App() {
   return (
     <>
-      <Next/>
+      <AgendaView/>
     </>
   )
 }
