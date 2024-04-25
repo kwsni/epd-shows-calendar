@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding:utf-8 -*-
 # Convert image to fit and retain detail on e-Paper display
 from PIL import Image
 from PIL.Image import Dither, Resampling

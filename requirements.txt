@@ -1,0 +1,6 @@
+colorzero==2.0
+gpiozero==2.0.1
+pigpio==1.78
+pillow==10.3.0
+RPi.GPIO==0.7.1
+spidev==3.6
