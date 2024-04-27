@@ -23,7 +23,7 @@ export function TodayAgendaView() {
                     <ul className="w-full divide-y divide-black overflow-y-auto">{todayAgendaList}</ul>
                 </div>
             ) : (
-                <div/>
+                <div className="-ml-1"/>
             )}
         </>
     )
