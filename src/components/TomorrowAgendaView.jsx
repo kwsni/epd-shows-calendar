@@ -16,7 +16,7 @@ function TomorrowAgendaView() {
         <>
             {(tomorrowAgenda.length > 0) ? (
                 <div className="border border-black rounded-lg h-full p-1 flex flex-col grow overflow-hidden">
-                    <h2 className="font-sans font-semibold text-lg">Tomorrow</h2>
+                    <h2 className="font-sans font-semibold">Tomorrow</h2>
                     <ul className="w-full divide-y divide-black overflow-y-auto">{tomorrowAgendaList}</ul>
                 </div>
             ) : (

@@ -19,7 +19,7 @@ export function TodayAgendaView() {
         <>
             {(todayAgenda.length > 0) ? (
                 <div className="border border-black rounded-lg h-full p-1 flex flex-col grow overflow-hidden">
-                    <h2 className="font-sans font-semibold text-lg">Today</h2>
+                    <h2 className="font-sans font-semibold">Today</h2>
                     <ul className="w-full divide-y divide-black overflow-y-auto">{todayAgendaList}</ul>
                 </div>
             ) : (

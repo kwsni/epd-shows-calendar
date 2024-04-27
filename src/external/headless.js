@@ -18,7 +18,8 @@ const pageDir = join(dirname(dirname(__dirname)), 'dist/index.html');
 
     await page.setViewport({ width: 480, height: 280 });
 
-    await page.locator('h3').wait()
+    await page.locator('h2').wait()
+    await page.locator('img').wait()
 
     await page.screenshot({ path: join(dirname(dirname(__dirname)), 'src/assets/dash.png'), type: 'png' });
 

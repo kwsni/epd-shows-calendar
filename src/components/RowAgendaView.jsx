@@ -16,7 +16,7 @@ function RowAgendaView() {
         <>
             {(rowAgenda.length > 0) ? (
                 <div className="border border-black rounded-lg h-full p-1 flex flex-col grow overflow-hidden">
-                    <h2 className="font-sans font-semibold text-lg">Later this week</h2>
+                    <h2 className="font-sans font-semibold">Later this week</h2>
                     <ul className="w-full divide-y divide-black overflow-y-auto">{rowAgendaList}</ul>
                 </div>
             ) : (
