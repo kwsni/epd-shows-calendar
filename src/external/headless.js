@@ -20,7 +20,7 @@ const pageDir = join(dirname(dirname(__dirname)), 'dist/index.html');
 
     await page.locator('h3').wait()
 
-    await page.screenshot({ path: join(dirname(dirname(__dirname)), 'pic/dash.png'), type: 'png' });
+    await page.screenshot({ path: join(dirname(dirname(__dirname)), 'src/assets/dash.png'), type: 'png' });
 
     await browser.close();
 })();
