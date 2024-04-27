@@ -11,6 +11,7 @@ node_modules
 dist/*
 dist-ssr
 *.local
+src/assets/*
 
 # Editor directories and files
 .vscode/*
@@ -31,4 +32,4 @@ lib/waveshare_epd/__pycache__/*
 .python-version
 
 examples/*
-pic/*
+.env
