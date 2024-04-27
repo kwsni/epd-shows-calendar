@@ -31,14 +31,14 @@ export default {
             emphasis: colors.gray[700],
           },
           border: {
-            DEFAULT: colors.gray[500],
+            DEFAULT: colors.black,
           },
           ring: {
             DEFAULT: colors.black,
           },
           content: {
             subtle: colors.gray[400],
-            DEFAULT: colors.gray[500],
+            DEFAULT: colors.black,
             emphasis: colors.gray[700],
             strong: colors.gray[900],
             inverted: colors.white,
@@ -90,9 +90,9 @@ export default {
           '0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)',
       },
       borderRadius: {
-        'tremor-small': '0px',
-        'tremor-default': '0px',
-        'tremor-full': '0px',
+        'tremor-small': '0.375rem',
+        'tremor-default': '5px',
+        'tremor-full': '9999px',
       },
       fontSize: {
         'tremor-label': ['0.75rem', { lineHeight: '1rem' }],

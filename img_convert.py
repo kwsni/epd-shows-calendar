@@ -8,7 +8,7 @@ import sys
 import os
 
 epd = epd3in7.EPD()
-picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'pic')
+picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'src/assets')
 img_f = sys.argv[1]
 img = Image.open(os.path.join(picdir, img_f))
 (width, height) = img.size

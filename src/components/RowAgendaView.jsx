@@ -8,22 +8,22 @@ function RowAgendaView() {
     const dtTomorrow = new Date(dtNow.valueOf() + 60*60*24*1000)
     const rowAgenda = agenda.filter((event) => (event.startDate.toJSDate().getDate() != dtNow.getDate()) && (event.startDate.toJSDate().getDate() != dtTomorrow.getDate()))
     const rowAgendaList = rowAgenda.map((event) => 
-        <ListItem key={event.uid}>
+        <ListItem key={event.uid} className="p-0">
             <span>{event.summary.split(/- \dx\d\d/)[0]}</span>
-            <span class="px-3 font-bold">{event.startDate.toJSDate().toLocaleDateString('en-US', {weekday: 'long'})}</span>
+            <span className="px-1 font-bold">{event.startDate.toJSDate().toLocaleDateString('en-US', {weekday: 'long'})}</span>
         </ListItem>
     )
     return (
-        <Card>
+        <>
             {(rowAgenda.length > 0) ? (
-                <div>
-                    <h2 class="font-sans font-semibold text-2xl">Later this week</h2>
+                <Card className="p-1 m-1">
+                    <h2 className="font-sans font-semibold text-lg">Later this week</h2>
                     <List>{rowAgendaList}</List>
-                </div>
+                </Card>
             ) : (
                 <div/>
             )}
-        </Card>
+        </>
     )
 }
 
