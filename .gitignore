@@ -12,6 +12,7 @@ dist/*
 dist-ssr
 *.local
 src/assets/*
+*.sh
 
 # Editor directories and files
 .vscode/*

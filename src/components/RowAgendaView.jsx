@@ -5,6 +5,7 @@ function RowAgendaView() {
     const agenda = useIcal([])
     const dtNow = new Date()
     const dtTomorrow = new Date(dtNow.valueOf() + 60*60*24*1000)
+    const todayAgenda = agenda.filter((event) => event.startDate.toJSDate().getDate() == dtNow.getDate() && event.startDate.toJSDate() > dtNow)
     const rowAgenda = agenda.filter((event) => (event.startDate.toJSDate().getDate() != dtNow.getDate()) && (event.startDate.toJSDate().getDate() != dtTomorrow.getDate()))
     const rowAgendaList = rowAgenda.map((event) => 
         <li key={event.uid} className="w-full flex justify-between items-center text-sm">
@@ -14,13 +15,13 @@ function RowAgendaView() {
     )
     return (
         <>
-            {(rowAgenda.length > 0) ? (
+            {(rowAgenda.length > 0 && todayAgenda < 1) ? (
                 <div className="border border-black rounded-lg h-full p-1 flex flex-col grow overflow-hidden">
                     <h2 className="font-sans font-semibold">Later this week</h2>
-                    <ul className="w-full divide-y divide-black overflow-y-auto">{rowAgendaList}</ul>
+                    <ul className="w-full divide-y divide-black overflow-y-hidden">{rowAgendaList}</ul>
                 </div>
             ) : (
-                <div/>
+                <></>
             )}
         </>
     )

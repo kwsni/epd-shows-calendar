@@ -1,18 +1,18 @@
 import TodayAgendaView from './components/TodayAgendaView.jsx'
+import NextAgendaView from './components/NextAgendaView.jsx'
 import TomorrowAgendaView from './components/TomorrowAgendaView.jsx'
 import RowAgendaView from './components/RowAgendaView.jsx'
-import poster from './assets/poster.jpg'
 
 function App() {
   return(
     <body className="flex flex-col h-[280px] w-[480px] p-1 space-y-1">
       <div className="flex grow w-full gap-1">
-        <TodayAgendaView/>
-        <TomorrowAgendaView/>
+        <NextAgendaView/>
       </div>
       <div className="flex grow w-full overflow-y-hidden gap-1">
-          <RowAgendaView/>
-          <img src={poster} className="m-auto p-1 w-1/4 object-contain"/>
+        <TodayAgendaView/>
+        <TomorrowAgendaView/>
+        <RowAgendaView/>
       </div>
     </body>
   )
