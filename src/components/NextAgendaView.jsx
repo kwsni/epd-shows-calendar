@@ -24,7 +24,7 @@ export function NextAgendaView() {
                             </li>
                         </ul>
                     </div>
-                    <img src={poster} className="m-auto pl-3 w-[25%] object-contain"/>
+                    {/*<img src={poster} className="m-auto pl-3 w-[25%] object-contain"/>*/}
                 </div>
             ) : (
                 <></>
