@@ -10,7 +10,9 @@ const pageDir = join(dirname(dirname(__dirname)), 'dist/index.html');
     const browser = await puppeteer.launch({
         product: 'chrome', 
         executablePath: '/usr/bin/chromium-browser', 
-        args: [ '--disable-web-security', ]
+        args: [ '--disable-web-security', 
+                '--disable-features=IsolateOrigins',
+                '--disable-site-isolation-trials']
     });
     const page = await browser.newPage();
 
