@@ -11,7 +11,7 @@ path = os.path.dirname(os.path.realpath(__file__))
 posterUrl=""
 
 data = get(f'{url}/api/v3/calendar?includeSeries=true&apikey={apikey}').json()
-nextEvent = next(filter(lambda event: datetime.fromisoformat(event['airDateUtc'][:19]).replace(tzinfo=timezone.utc) > datetime.now(timezone.utc), data))
+nextEvent = next(filter(lambda event: datetime.fromisoformat(event['airDateUtc'][:19]).replace(tzinfo=timezone.utc) < datetime.now(timezone.utc), data))
 for media in nextEvent['series']['images']:
     if media['coverType'] == 'poster':
         posterUrl = media['remoteUrl']
