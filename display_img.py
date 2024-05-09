@@ -2,7 +2,7 @@
 # -*- coding:utf-8 -*-
 import sys
 import os
-picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'src/assets')
+picdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'images')
 libdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'lib')
 if os.path.exists(libdir):
     sys.path.append(libdir)

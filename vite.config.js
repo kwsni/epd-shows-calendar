@@ -12,7 +12,7 @@ export default defineConfig({
       external: [
         fileURLToPath(
           new URL(
-            'src/external/headless.js',
+            'screenshot.js',
             import.meta.url
           )
         )
