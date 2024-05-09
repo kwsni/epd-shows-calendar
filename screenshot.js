@@ -4,7 +4,7 @@ import { join, dirname } from 'node:path';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const pageDir = join(dirname(dirname(__dirname)), 'dist/index.html');
+const pageDir = join((__dirname), 'dist/index.html');
 
 (async () => {
     const browser = await puppeteer.launch({
@@ -22,7 +22,7 @@ const pageDir = join(dirname(dirname(__dirname)), 'dist/index.html');
 
     await page.locator('h2').wait()
 
-    await page.screenshot({ path: join(dirname(dirname(__dirname)), 'images/dash.png'), type: 'png' });
+    await page.screenshot({ path: join(__dirname, 'images/dash.png'), type: 'png' });
 
     await browser.close();
 })();
