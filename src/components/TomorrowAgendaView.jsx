@@ -31,14 +31,14 @@ function TomorrowAgendaView({
         <span className="text-right">
           {new Date(event["airDateUtc"])
             .toLocaleTimeString("en-GB")
-            .replace(/(|0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+            .replace(/((0)|(1|2))(\d:\d{2})(:\d{2})/, "$3$4")}
         </span>
         {sortedEps.dupes.map(dupe => (
           dupe.series.title == event.series.title
           ? <span className="text-right">
               {new Date(dupe["airDateUtc"])
                 .toLocaleTimeString("en-GB")
-                .replace(/(0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+                .replace(/((0)|(1|2))(\d:\d{2})(:\d{2})/, "$3$4")}
             </span>
           : <></>
         ))}

@@ -17,7 +17,7 @@ function ThView({
   });
   const thEpisodeList = sortedEps.unique.map((event) => (
     <li key={event.uid} className="items-top flex w-full justify-between">
-      <span className="overflow-hidden text-wrap break-words font-bold">
+      <span className="overflow-hidden text-ellipsis font-bold">
         {event["series"]["title"]}
       </span>
     </li>
