@@ -12,7 +12,7 @@ from lib.waveshare_epd import epd3in7
 from datetime import datetime
 from PIL import Image
 
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 localeTZ = datetime.now().tzinfo
 img_f = sys.argv[1]

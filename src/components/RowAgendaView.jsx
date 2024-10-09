@@ -1,26 +1,54 @@
-import React from "react"
+import React from "react";
 
-function RowAgendaView({ todayAgenda, tomorrowAgenda, rowAgenda, availableEpisodes}) {
-    const rowAgendaList = rowAgenda.map((event) => 
-        <li key={event.uid} className="w-full flex justify-between items-top">
-            <span className="font-bold truncate">{event.summary.split(/- \dx\d\d/)[0]}</span>
-            <span className="px-1 font-semibold">{event.startDate.toJSDate().toLocaleDateString('en-US', {weekday: 'short'})}</span>
-        </li>
-    )
-    return (
-        <>
-            {(rowAgenda.length > 0 && todayAgenda.length < 1 && availableEpisodes.length < 2) ? (
-                <div className="border border-black rounded-lg h-0 min-h-full p-1 flex flex-col overflow-hidden">
-                    <h2 className={`font-semibold text-${(tomorrowAgenda.length > 0) ? 'sm' : 'xl'}`}>Later this week</h2>
-                    <ul className={`flex flex-col divide-y divide-black overflow-y-hidden ${(tomorrowAgenda.length > 0) ? 'text-[12px]' : ''}`}>
-                        {rowAgendaList}
-                    </ul>
-                </div>
-            ) : (
-                <></>
-            )}
-        </>
-    )
+function RowAgendaView({
+  rowEpisodes,
+  showsRow,
+  showsTomorrow
+}) {
+  const seen = new Set()
+  const sortedEps = { unique: [], dupes: [] }
+  rowEpisodes.forEach(
+    event => { 
+      seen.has(event.series.title) 
+        ? sortedEps.dupes.push(event)
+        : seen.add(event.series.title) && sortedEps.unique.push(event)
+  });
+  const rowEpisodeList = sortedEps.unique.map((event => (
+    <li key={event.uid} className="flex flex-row w-full justify-between">
+      <span>
+        {(event["episodeNumber"] == 1 ? "🆕" : "")}
+        {(event["finaleType"] ?? "isNotFinale") == "isNotFinale"
+            ? ""
+            : "🏁"}
+      </span>
+      <span className="w-full truncate font-bold text-left">
+        {event["series"]["title"]}
+      </span>
+      <span className="px-1">
+        {new Date(event["airDateUtc"])
+          .toLocaleDateString("en-GB", { weekday: "short"})}
+      </span>
+    </li>
+  )))
+  return (
+    <>
+      {showsRow && showsTomorrow ? (
+        <div className="-order-1 flex h-0 min-h-full flex-col overflow-hidden rounded-lg border border-black p-1">
+          <h2 className={`text-${showsTomorrow ? "sm" : "xl"}`}>
+            Later this week
+          </h2>
+          <hr className={`border-black border-1 border-dotted`}/>
+          <ul
+            className={`flex flex-col divide-y divide-black overflow-y-hidden ${showsTomorrow ? "text-[12px]" : ""}`}
+          >
+            {rowEpisodeList}
+          </ul>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }
 
-export default RowAgendaView
+export default RowAgendaView;

@@ -1,28 +1,82 @@
-import React from "react"
+import React from "react";
 
-function TodayAgendaView({ todayAgenda, dtNow }) {
-    const todayAgendaList = todayAgenda.map((event) => 
-        <li key={event.uid} className="w-full flex justify-between items-center">
-            <span className="font-bold">{event.summary.split(/- \dx\d\d/)[0]}</span>
-            {(event.startDate.toJSDate() > dtNow) ? (
-                <span className="px-1 font-semibold">{event.startDate.toJSDate().toLocaleTimeString('en-GB').slice(1).replace(/(:\d{2}$)/, " ")}</span>
+function TodayAgendaView({ todayEpisodes, dtNow, showsAvailable, showsToday }) {
+  const seen = new Set()
+  const sortedEps = { unique: [], dupes: [] }
+  todayEpisodes.forEach(
+    event => { 
+      seen.has(event.series.title) 
+        ? sortedEps.dupes.push(event)
+        : seen.add(event.series.title) && sortedEps.unique.push(event)
+  });
+  let posterUrl = ""
+  if (showsToday) {
+    for (let media of todayEpisodes[0]["series"]["images"]) {
+      if (media["coverType"] == "poster") {
+        posterUrl = media["remoteUrl"];
+      }
+    }
+  }
+  const todayEpisodeList = sortedEps.unique.map((event) => (
+    <li key={event["id"]} className="flex flex-row w-full justify-between">
+      <span>
+        {(event["episodeNumber"] == 1 ? "🆕" : "")}
+        {(event["finaleType"] ?? "isNotFinale") == "isNotFinale"
+            ? ""
+            : "🏁"}
+      </span>
+      <span className="w-full font-bold text-left">
+        {event["series"]["title"]}
+      </span>
+      <div className="flex flex-col px-1">
+        <span className="text-xs font-bold">{event["series"]["network"]}</span>
+        {new Date(event["airDateUtc"]) > dtNow ? (
+          <>
+            <span className="text-right">
+              {new Date(event["airDateUtc"])
+                .toLocaleTimeString("en-GB")
+                .replace(/(0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+            </span>
+            {sortedEps.dupes.map(dupe => (
+              dupe.series.title == event.series.title
+              ? <span className="text-right">
+                  {new Date(dupe["airDateUtc"])
+                    .toLocaleTimeString("en-GB")
+                    .replace(/(0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+                </span>
+              : <></>
+            ))}
+          </>
+        ) : (
+          <span className="whitespace-nowrap">On Air</span>
+        )}
+      </div>
+    </li>
+  ));
+  return (
+    <>
+      {showsToday ? (
+        <div className="-order-3 flex h-full grow gap-1">
+          <div className="flex grow flex-col overflow-hidden rounded-lg border border-black p-1">
+            <h2 className="text-2xl">Today</h2>
+            <hr className={`border-black border-1 border-dotted`}/>
+            <ul
+              className={`w-full divide-y divide-black overflow-y-hidden text-2xl`}
+            >
+              {todayEpisodeList}
+            </ul>
+            </div>
+            {!showsAvailable && showsToday ? (
+              <img src={posterUrl} className="h-0 min-h-full rounded-lg" />
             ) : (
-                <span className="px-1 whitespace-nowrap">On Air</span>
+              <></>
             )}
-        </li>
-    )
-    return (
-        <>
-            {(todayAgenda.length > 0) ? (
-                <div className="border border-black rounded-lg h-full p-1 flex flex-col grow overflow-hidden">
-                    <h2 className="font-semibold text-2xl">Today</h2>
-                    <ul className={`w-full divide-y divide-black overflow-y-hidden text-3xl`}>{todayAgendaList}</ul>
-                </div>
-            ) : (
-                <></>
-            )}
-        </>
-    )
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }
 
-export default TodayAgendaView
+export default TodayAgendaView;

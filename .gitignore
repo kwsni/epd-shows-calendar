@@ -35,3 +35,7 @@ lib/waveshare_epd/__pycache__/*
 examples/*
 images/*
 .env
+
+# Added by cargo
+
+/target

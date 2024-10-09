@@ -1,27 +1,67 @@
-import React from "react"
+import React from "react";
 
-export function AvailableView({ availableEpisodes, posterUrl }) {
-    const availableEpisodeList = availableEpisodes.map((event) => 
-        <li key={event['id']} className="w-full flex justify-between items-end">
-            <span className="font-bold text-3xl text-balance">{event['series']['title']}</span>
-            <span className="px-1 font-semibold text-2xl">S{event['seasonNumber']}E{event['episodeNumber']}</span>
-        </li>
-    )
-    return (
-        <>
-            {(availableEpisodes.length > 0) ? (
-                <div className="flex grow gap-1">
-                    <div className="border border-black rounded-lg p-1 flex flex-col grow">
-                        <h2 className="font-semibold text-2xl">Available now</h2>
-                        <ul className="flex divide-y divide-black overflow-hidden">{availableEpisodeList}</ul>
-                    </div>
-                    <img src={posterUrl} className="h-0 min-h-full rounded-lg"/>
-                </div>
-            ) : (
-                <></>
-            )}
-        </>
-    )
+export function AvailableView({ availableEpisodes, showsAvailable, oneOrLessShowsAvailable }) {
+  const seen = new Set()
+  const sortedEps = { unique: [], dupes: [] }
+  availableEpisodes.forEach(
+    event => { 
+      seen.has(event.series.title) 
+        ? sortedEps.dupes.push(event)
+        : seen.add(event.series.title) && sortedEps.unique.push(event)
+  });
+  let posterUrl = ""
+  if (showsAvailable) {
+    for (let media of availableEpisodes[0]["series"]["images"]) {
+      if (media["coverType"] == "poster") {
+        posterUrl = media["remoteUrl"];
+      }
+    }
+  }
+  const availableEpisodeList = sortedEps.unique.map((event) => (
+    <li key={event["id"]} className="flex flex-row w-full justify-between">
+      <span>
+        {(event["episodeNumber"] == 1 ? "🆕" : "")}
+        {(event["finaleType"] ?? "isNotFinale") == "isNotFinale"
+            ? ""
+            : "🏁"}
+      </span>
+      <span
+        className={`w-full font-bold text-${oneOrLessShowsAvailable ? "3" : "2"}xl text-left`}
+      >
+        {event["series"]["title"]}
+      </span>
+      <div className="flex flex-col px-1">
+        <span className="text-center text-2xl">
+        S{event["seasonNumber"]}E{event["episodeNumber"]}
+        </span>
+        {sortedEps.dupes.map(dupe => (
+              dupe.series.title == event.series.title
+              ? <span className="text-center text-2xl">
+                  S{dupe["seasonNumber"]}E{dupe["episodeNumber"]}
+                </span>
+              : <></>
+        ))}
+      </div>
+    </li>
+  ));
+  return (
+    <>
+      {showsAvailable ? (
+        <div className="flex grow gap-1">
+          <div className="flex grow flex-col rounded-lg border border-black p-1">
+            <h2 className="text-2xl">Available now</h2>
+            <hr className={`border-black border-1 border-dotted`}/>
+            <ul className="flex flex-col divide-y divide-black overflow-hidden">
+              {availableEpisodeList}
+            </ul>
+          </div>
+          <img src={posterUrl} className="h-0 min-h-full rounded-lg" />
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }
 
-export default AvailableView
+export default AvailableView;

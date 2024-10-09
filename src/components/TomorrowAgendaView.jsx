@@ -1,24 +1,67 @@
-import React from "react"
+import React from "react";
 
-function TomorrowAgendaView({ todayAgenda, tomorrowAgenda, availableEpisodes}) {
-    const tomorrowAgendaList = tomorrowAgenda.map((event) => 
-        <li key={event.uid} className="w-full my-1 flex justify-between items-top">
-            <span className={`font-bold ${(todayAgenda.length < 1 && availableEpisodes.length < 1) ? 'truncate' : ''}`}>{event.summary.split(/- \dx\d\d/)[0]}</span>
-            <span className="px-1 font-semibold">{event.startDate.toJSDate().toLocaleTimeString('en-UK').slice(1).replace(/:\d{2}$/, " ")}</span>
-        </li>
-    )
-    return (
-        <>
-            {(tomorrowAgenda.length > 0 && availableEpisodes.length < 2) ? (
-                <div className="border border-black rounded-lg h-full p-1 flex flex-col overflow-hidden">
-                    <h2 className="font-semibold text-2xl">Tomorrow</h2>
-                    <ul className={`w-full divide-y divide-black overflow-y-hidden text-${(todayAgenda.length < 1 && availableEpisodes.length < 1) ? '2' : ''}xl`}>{tomorrowAgendaList}</ul>
-                </div>
-            ) : (
-                <></>
-            )}
-        </>
-    )
+function TomorrowAgendaView({
+  tomorrowEpisodes,
+  showsAvailable,
+  showsToday,
+  showsTomorrow
+}) {
+  const seen = new Set()
+  const sortedEps = { unique: [], dupes: [] }
+  tomorrowEpisodes.forEach(
+    event => { 
+      seen.has(event.series.title) 
+        ? sortedEps.dupes.push(event)
+        : seen.add(event.series.title) && sortedEps.unique.push(event)
+  });
+  const tomorrowEpisodeList = sortedEps.unique.map((event) => (
+    <li key={event.id} className="flex flex-row w-full justify-between">
+      <span>     
+        {(event["episodeNumber"] == 1 ? "🆕" : "")}
+        {(event["finaleType"] ?? "isNotFinale") == "isNotFinale"
+            ? ""
+            : "🏁"}
+      </span>
+      <span
+        className={`w-full font-bold text-left ${!showsAvailable && !showsToday ? "" : "truncate"}`}
+      >
+        {event["series"]["title"]}
+      </span>
+      <div className={"flex flex-col px-1"}>
+        <span className="text-right">
+          {new Date(event["airDateUtc"])
+            .toLocaleTimeString("en-GB")
+            .replace(/(|0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+        </span>
+        {sortedEps.dupes.map(dupe => (
+          dupe.series.title == event.series.title
+          ? <span className="text-right">
+              {new Date(dupe["airDateUtc"])
+                .toLocaleTimeString("en-GB")
+                .replace(/(0|1|2)(\d:\d{2})(:\d{2})/, "$2")}
+            </span>
+          : <></>
+        ))}
+      </div>
+    </li>
+  ));
+  return (
+    <>
+      {showsTomorrow ? (
+        <div className="-order-2 flex h-full flex-col overflow-hidden rounded-lg border border-black p-1">
+          <h2 className="text-2xl">Tomorrow</h2>
+          <hr className={`border-black border-1 border-dotted`}/>
+          <ul
+            className={`w-full divide-y divide-black overflow-y-hidden text-${!showsAvailable && !showsToday ? "2" : ""}xl`}
+          >
+            {tomorrowEpisodeList}
+          </ul>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
+  );
 }
 
-export default TomorrowAgendaView
+export default TomorrowAgendaView;
