@@ -12,7 +12,7 @@ picdir = os.path.join(basedir, 'public/posters')
 dtToday = datetime.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
 dtWeek = dtToday + datetime.timedelta(days=7)
 
-response = requests.get(f'{os.getenv("SONARR_URL")}/api/v3/calendar?start={dtToday.isoformat()}&end={dtWeek.isoformat()}&includeSeries=true&apikey={os.getenv("SONARR_API_KEY")}')
+response = requests.get(f'{os.getenv("VITE_SONARR_URL")}/api/v3/calendar?start={dtToday.isoformat()}&end={dtWeek.isoformat()}&includeSeries=true&apikey={os.getenv("VITE_SONARR_API_KEY")}')
 
 if response.status_code == 200:
     with open(os.path.join(basedir, 'sonarr-cal.json'), 'w') as of:
@@ -26,7 +26,7 @@ if response.status_code == 200:
                 f.write(requests.get(media['remoteUrl']).content)
                 f.close()
 
-response = requests.get(f'{os.getenv("TAUTULLI_URL")}/api/v2/?apikey={os.getenv("TAUTULLI_API_KEY")}&cmd=get_history&section_id=2&after={dtToday.isoformat()}')
+response = requests.get(f'{os.getenv("VITE_TAUTULLI_URL")}/api/v2/?apikey={os.getenv("VITE_TAUTULLI_API_KEY")}&cmd=get_history&section_id=2&after={dtToday.isoformat()}')
 
 if response.status_code == 200:
     with open(os.path.join(basedir, 'tautulli-watched.json'), 'w') as of:
