@@ -9,12 +9,11 @@ import WView from "./components/WView.jsx";
 import ThView from "./components/ThView.jsx";
 import FView from "./components/FView.jsx";
 import SaView from "./components/SaView.jsx";
-import { useSonarr } from "./hooks/useSonarr.jsx";
-import { useTautulli } from "./hooks/useTautulli.jsx";
+import sonarrAgenda from "../sonarr-cal.json";
+import tautulliWatched from "../tautulli-watched.json";
 
 function App() {
-  const sonarrAgenda = useSonarr([]);
-  const recentlyWatched = useTautulli([]);
+  const recentlyWatched = tautulliWatched.response.data.data;
   const dtNow = new Date();
   const dtTomorrow = new Date(dtNow.valueOf() + 60 * 60 * 24 * 1000);
   const availableEpisodes = sonarrAgenda.filter(
@@ -71,6 +70,8 @@ function App() {
   const showsTomorrow = airingTomorrow && showsOneOrLessAvailable
   const airingRow = rowEpisodes.length > 0
   const showsRow = airingRow && showsOneOrLessAvailable
+
+  console.log(todayEpisodes)
 
   return (
     <div className="flex h-[280px] w-[480px] flex-col space-y-1 p-1 bg-white">

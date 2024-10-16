@@ -34,7 +34,11 @@ lib/waveshare_epd/__pycache__/*
 
 examples/*
 images/*
+public/*
+sonarr-cal.json
+tautulli-watched.json
 .env
+
 
 # Added by cargo
 

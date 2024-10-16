@@ -11,11 +11,7 @@ function TodayAgendaView({ todayEpisodes, dtNow, showsAvailable, showsToday }) {
   });
   let posterUrl = ""
   if (showsToday) {
-    for (let media of todayEpisodes[0]["series"]["images"]) {
-      if (media["coverType"] == "poster") {
-        posterUrl = media["remoteUrl"];
-      }
-    }
+    posterUrl = `/posters/${todayEpisodes[0]["series"]["titleSlug"]}.jpg`
   }
   const todayEpisodeList = sortedEps.unique.map((event) => (
     <li key={event["id"]} className="flex flex-row w-full justify-between">
@@ -29,7 +25,7 @@ function TodayAgendaView({ todayEpisodes, dtNow, showsAvailable, showsToday }) {
         {event["series"]["title"]}
       </span>
       <div className="flex flex-col px-1">
-        <span className="text-xs font-bold">{event["series"]["network"]}</span>
+        <span className="text-xs whitespace-nowrap font-bold text-right">{event["series"]["network"]}</span>
         {new Date(event["airDateUtc"]) > dtNow ? (
           <>
             <span className="text-right">

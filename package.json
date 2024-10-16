@@ -1,7 +1,10 @@
 {
   "name": "epd-sonarr-calendar",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.5.0-alpha",
+  "description": "Sonarr agenda and calendar view on e-Paper display",
+  "author": "kwsni",
+  "license": "MIT",
   "type": "module",
   "scripts": {
     "dev": "vite",

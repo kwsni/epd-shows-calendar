@@ -11,11 +11,7 @@ export function AvailableView({ availableEpisodes, showsAvailable, oneOrLessShow
   });
   let posterUrl = ""
   if (showsAvailable) {
-    for (let media of availableEpisodes[0]["series"]["images"]) {
-      if (media["coverType"] == "poster") {
-        posterUrl = media["remoteUrl"];
-      }
-    }
+    posterUrl = `/posters/${availableEpisodes[0]["series"]["titleSlug"]}.jpg`
   }
   const availableEpisodeList = sortedEps.unique.map((event) => (
     <li key={event["id"]} className="flex flex-row w-full justify-between">
