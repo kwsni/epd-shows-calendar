@@ -16,8 +16,8 @@ ENV VITE_SONARR_API_KEY=""
 ENV VITE_TAUTULLI_API_KEY=""
 
 COPY --from=fetch-data /public/ ./public
-COPY --from=fetech-data /sonarr-cal.json ./
-COPY --from=fetech-data /tautulli-watched.json ./
+COPY --from=fetch-data /sonarr-cal.json ./
+COPY --from=fetch-data /tautulli-watched.json ./
 COPY package*.json .
 COPY *.config.js .
 COPY index.html .
