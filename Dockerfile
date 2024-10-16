@@ -9,6 +9,7 @@ ENV VITE_TAUTULLI_API_KEY=""
 
 COPY requirements.txt .
 COPY fetch_api.py .
+RUN mkdir public && mkdir public/posters
 RUN pip install -r requirements.txt
 RUN python3 fetch_api.py
 
