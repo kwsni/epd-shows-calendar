@@ -1,6 +1,12 @@
 # Fetch data from sonarr and tautulli
 FROM python:3.10.12 as fetch-data
 
+# Fill these in with appropriate values
+ENV VITE_SONARR_URL=""
+ENV VITE_TAUTULLI_URL=""
+ENV VITE_SONARR_API_KEY=""
+ENV VITE_TAUTULLI_API_KEY=""
+
 COPY requirements.txt .
 COPY fetch_api.py .
 RUN pip install -r requirements.txt
@@ -8,12 +14,6 @@ RUN python3 fetch_api.py
 
 # Build static site
 FROM node:20.18.0 as build
-
-# Fill these in with appropriate values
-ENV VITE_SONARR_URL=""
-ENV VITE_TAUTULLI_URL=""
-ENV VITE_SONARR_API_KEY=""
-ENV VITE_TAUTULLI_API_KEY=""
 
 COPY --from=fetch-data /public/ ./public
 COPY --from=fetch-data /sonarr-cal.json ./
