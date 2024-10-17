@@ -1,0 +1,13 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    image: epd-sonarr-cal-api
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    image: epd-sonarr-cal-client
+    ports:
+      - "6173:80"

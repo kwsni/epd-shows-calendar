@@ -11,7 +11,7 @@ function TodayAgendaView({ todayEpisodes, dtNow, showsAvailable, showsToday }) {
   });
   let posterUrl = ""
   if (showsToday) {
-    posterUrl = `/posters/${todayEpisodes[0]["series"]["titleSlug"]}.jpg`
+    posterUrl = `/api/posters/${todayEpisodes[0]["seriesId"]}`
   }
   const todayEpisodeList = sortedEps.unique.map((event) => (
     <li key={event["id"]} className="flex flex-row w-full justify-between">

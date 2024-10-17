@@ -8,7 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist/*
+dist
 dist-ssr
 *.local
 *.sh
@@ -26,17 +26,15 @@ dist-ssr
 *.sw?
 
 # python
-__pycache__/*
-.cache/*
-.venv/*
+__pycache__
+.cache
+.venv
 lib/waveshare_epd/__pycache__/*
 .python-version
 
-examples/*
-images/*
-public/*
-sonarr-cal.json
-tautulli-watched.json
+examples
+images
+public
 .env
 
 

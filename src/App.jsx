@@ -9,11 +9,12 @@ import WView from "./components/WView.jsx";
 import ThView from "./components/ThView.jsx";
 import FView from "./components/FView.jsx";
 import SaView from "./components/SaView.jsx";
-import sonarrAgenda from "../sonarr-cal.json";
-import tautulliWatched from "../tautulli-watched.json";
+import { useSonarr } from "./hooks/useSonarr.jsx";
+import { useTautulli } from "./hooks/useTautulli.jsx";
 
 function App() {
-  const recentlyWatched = tautulliWatched.response.data.data;
+  const sonarrAgenda = useSonarr([]);
+  const recentlyWatched = useTautulli([]);
   const dtNow = new Date();
   const dtTomorrow = new Date(dtNow.valueOf() + 60 * 60 * 24 * 1000);
   const availableEpisodes = sonarrAgenda.filter(

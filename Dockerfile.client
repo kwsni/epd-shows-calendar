@@ -1,0 +1,16 @@
+
+# Build static site
+FROM node:20.18.0 as build
+
+WORKDIR /app
+COPY package*.json *.config.js index.html ./
+COPY src src
+COPY public public
+RUN npm ci
+RUN npm run build
+
+# Serve static site from nginx
+FROM nginx:stable-alpine
+
+COPY --from=build /app/dist/ /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
