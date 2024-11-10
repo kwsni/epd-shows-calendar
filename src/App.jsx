@@ -11,6 +11,7 @@ import FView from "./components/FView.jsx";
 import SaView from "./components/SaView.jsx";
 import { useSonarr } from "./hooks/useSonarr.jsx";
 import { useTautulli } from "./hooks/useTautulli.jsx";
+import { useWindowDimensions } from "./hooks/useWindowDimensions.jsx"
 
 function App() {
   const sonarrAgenda = useSonarr([]);
@@ -72,10 +73,11 @@ function App() {
   const airingRow = rowEpisodes.length > 0
   const showsRow = airingRow && showsOneOrLessAvailable
 
-  console.log(todayEpisodes)
+  const { width, height } = useWindowDimensions()
+  const scale = Math.min(width / 480, height / 280)
 
   return (
-    <div className="flex h-[280px] w-[480px] flex-col space-y-1 p-1 bg-white">
+    <div style={{ transform: `scale(${scale})`}} className={`${width < 480 ? 'origin-left' : ''} flex h-[280px] w-[480px] flex-col space-y-1 p-1 bg-white`}>
       <AvailableView
         availableEpisodes={availableEpisodes}
         showsAvailable={showsAvailable}
