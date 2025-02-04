@@ -8,7 +8,7 @@ load_dotenv()
 def dtToday():
     return datetime.datetime.today().replace(hour=0, minute=0, second=0, microsecond=0)
 def dtWeek():
-    return dtToday + datetime.timedelta(days=7)
+    return dtToday() + datetime.timedelta(days=7)
 
 app = Flask(__name__)
 
