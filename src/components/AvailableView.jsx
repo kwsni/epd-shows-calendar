@@ -15,28 +15,31 @@ export function AvailableView({ availableEpisodes, showsAvailable, oneOrLessShow
   }
   const availableEpisodeList = sortedEps.unique.map((event) => (
     <li key={event["id"]} className="flex flex-row w-full justify-between">
-      <span>
+      <span
+        className={`w-full font-bold ${sortedEps.unique.length < 2 ? "text-3xl" : "text-2xl"} text-left`}
+      >
         {(event["episodeNumber"] == 1 ? "🆕" : "")}
         {(event["finaleType"] ?? "isNotFinale") == "isNotFinale"
             ? ""
             : "🏁"}
-      </span>
-      <span
-        className={`w-full font-bold text-${oneOrLessShowsAvailable ? "3" : "2"}xl text-left`}
-      >
         {event["series"]["title"]}
       </span>
       <div className="flex flex-col px-1">
         <span className="text-center text-2xl">
-        S{event["seasonNumber"]}E{event["episodeNumber"]}
+        S{event["seasonNumber"]}E{`${event["episodeNumber"]
+        // Displays available episodes of series as S[]E[] (as above) or S[]E[]-[]
+        }${
+          // Check for multi-episode release: add dash if dupes found
+          sortedEps.dupes.some(dupe => dupe.series.title == event.series.title).length < 1 ? "" : "-"
+        }${
+          // Find last episode to release today
+          sortedEps.dupes.filter(dupe => dupe.series.title == event.series.title).reduce(
+          (lastEp, curDupe) => 
+            (lastEp && lastEp["episodeNumber"] > curDupe["episodeNumber"]) ? lastEp : curDupe
+          , event
+        )["episodeNumber"]}`}
         </span>
-        {sortedEps.dupes.map(dupe => (
-              dupe.series.title == event.series.title
-              ? <span className="text-center text-2xl">
-                  S{dupe["seasonNumber"]}E{dupe["episodeNumber"]}
-                </span>
-              : <></>
-        ))}
+        
       </div>
     </li>
   ));

@@ -52,7 +52,7 @@ function TomorrowAgendaView({
           <h2 className="text-2xl">Tomorrow</h2>
           <hr className={`border-black border-1 border-dotted`}/>
           <ul
-            className={`w-full divide-y divide-black overflow-y-hidden text-${!showsAvailable && !showsToday ? "2" : ""}xl`}
+            className={`w-full divide-y divide-black overflow-y-hidden ${!showsAvailable && !showsToday ? "text-2xl" : "text-xl"}`}
           >
             {tomorrowEpisodeList}
           </ul>

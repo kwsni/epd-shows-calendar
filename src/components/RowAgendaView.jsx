@@ -34,7 +34,7 @@ function RowAgendaView({
     <>
       {showsRow && showsTomorrow ? (
         <div className="-order-1 flex h-full flex-col overflow-hidden rounded-lg border border-black p-1">
-          <h2 className={`text-${showsTomorrow ? "sm" : "xl"}`}>
+          <h2 className={`${showsTomorrow ? "text-sm" : "text-xl"}`}>
             Later this week
           </h2>
           <hr className={`border-black border-1 border-dotted`}/>
