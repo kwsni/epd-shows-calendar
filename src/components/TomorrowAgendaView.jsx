@@ -34,7 +34,7 @@ function TomorrowAgendaView({
             .replace(/((0)|(1|2))(\d:\d{2})(:\d{2})/, "$3$4")}
         </span>
         {sortedEps.dupes.map(dupe => (
-          dupe.series.title == event.series.title
+          dupe.series.title == event.series.title && dupe.airDateUtc != event.airDateUtc
           ? <span className="text-right">
               {new Date(dupe["airDateUtc"])
                 .toLocaleTimeString("en-GB")
@@ -48,7 +48,7 @@ function TomorrowAgendaView({
   return (
     <>
       {showsTomorrow ? (
-        <div className="-order-2 flex h-full flex-col overflow-hidden rounded-lg border border-black p-1">
+        <div className="-order-2 flex flex-[1_0_auto] h-full flex-col overflow-hidden rounded-lg border border-black p-1">
           <h2 className="text-2xl">Tomorrow</h2>
           <hr className={`border-black border-1 border-dotted`}/>
           <ul

@@ -4,6 +4,7 @@ WORKDIR /app
 COPY api/* ./
 RUN pip install -r requirements.txt
 ENV FLASK_ENV production
+ENV TZ America/Los_Angeles
 
 EXPOSE 5000
 CMD ["gunicorn", "-b", ":5000", "app:app"]

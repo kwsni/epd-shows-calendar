@@ -84,7 +84,7 @@ function App() {
         oneOrLessShowsAvailable={oneOrLessShowsAvailable}
       />
       {(showsToday || showsTomorrow || (showsRow && !showsAvailable && !showsTomorrow)) ?
-        <div className={`flex flex-row ${showsAvailable ? "" : "grow"} w-full gap-1 overflow-y-scroll`}>
+        <div className={`flex flex-row ${showsAvailable ? "" : "grow"} w-full gap-1 overflow-y-hidden`}>
           <TodayAgendaView
             todayEpisodes={todayEpisodes}
             dtNow={dtNow}

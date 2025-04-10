@@ -11,5 +11,6 @@ RUN npm run build
 # Serve static site from nginx
 FROM nginx:stable-alpine
 
+ENV TZ America/Los_Angeles
 COPY --from=build /app/dist/ /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf

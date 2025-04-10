@@ -29,9 +29,9 @@ dist-ssr
 __pycache__
 .cache
 .venv
-lib/waveshare_epd/__pycache__/*
 .python-version
 
+lib
 examples
 images
 public

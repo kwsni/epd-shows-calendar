@@ -4,10 +4,12 @@ services:
       context: .
       dockerfile: Dockerfile.api
     image: epd-sonarr-cal-api
+    restart: unless-stopped
   client:
     build:
       context: .
       dockerfile: Dockerfile.client
     image: epd-sonarr-cal-client
+    restart: unless-stopped
     ports:
       - "6173:80"

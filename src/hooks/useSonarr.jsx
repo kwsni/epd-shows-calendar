@@ -17,7 +17,7 @@ export function useSonarr() {
       const sonarrCal = await fetchCal();
       const weekCal = sonarrCal.filter(
         (event) =>
-          Date.parse(event["airDateUtc"]) > dtToday &&
+          Date.parse(event["airDateUtc"]) >= dtToday &&
           Date.parse(event["airDateUtc"]) < dtWeek,
       );
       setSonarrCal(weekCal);

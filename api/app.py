@@ -22,7 +22,7 @@ def get_sonarr_cal():
 @app.route('/api/tautulliWatched', methods=['GET'])
 def get_tautulli_watched():
     if request.method == 'GET':
-        data = requests.get(f'{os.getenv("VITE_TAUTULLI_URL")}/api/v2/?apikey={os.getenv("VITE_TAUTULLI_API_KEY")}&cmd=get_history&section_id=2&after={dtToday().isoformat()}')
+        data = requests.get(f'{os.getenv("VITE_TAUTULLI_URL")}/api/v2/?apikey={os.getenv("VITE_TAUTULLI_API_KEY")}&cmd=get_history&section_id=2&after={dtToday().date().isoformat()}')
         return data.content, data.status_code
         
 @app.route('/api/posters/<seriesId>', methods=['GET'])
