@@ -26,11 +26,11 @@ export function AvailableView({ availableEpisodes, showsAvailable, oneOrLessShow
       </span>
       <div className="flex flex-col px-1">
         <span className="text-center text-2xl">
-        S{event["seasonNumber"]}E{`${event["episodeNumber"]
-        // Displays available episodes of series as S[]E[] (as above) or S[]E[]-[]
-        }${
+        S{event["seasonNumber"]}E{`${
+          // Displays available episodes of series as S[]E[] or S[]E[]-[]
+
           // Check for multi-episode release: add dash if dupes found
-          sortedEps.dupes.some(dupe => dupe.series.title == event.series.title).length < 1 ? "" : "-"
+          sortedEps.dupes.some(dupe => dupe.series.title == event.series.title) ? `${event["episodeNumber"]}-`: ""
         }${
           // Find last episode to release today
           sortedEps.dupes.filter(dupe => dupe.series.title == event.series.title).reduce(
