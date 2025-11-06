@@ -13,3 +13,17 @@ services:
     restart: unless-stopped
     ports:
       - "6173:80"
+    volumes:
+      - ./public/images:/public/images
+  screenshot:
+    build:
+      context: .
+      dockerfile: Dockerfile.screenshot
+    image: epd-sonarr-cal-screenshot
+    restart: unless-stopped
+    volumes:
+      - ./public/images:/script/public/images
+    environment:
+      - IMAGE_URL=http://client/images/dash.png
+    depends_on:
+      - client

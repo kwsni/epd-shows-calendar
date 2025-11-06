@@ -1,12 +1,17 @@
 # Build static site
-FROM node:20.18.0 as build
+FROM node:20.18.0-slim as base
 
 WORKDIR /app
-COPY package*.json *.config.js index.html ./
+RUN npm install -g pnpm
+
+FROM base AS build
+
+COPY package.json pnpm-lock.yaml *.config.js index.html ./
 COPY src src
 COPY public public
-RUN npm ci
-RUN npm run build
+
+RUN pnpm install --frozen-lockfile
+RUN pnpm build
 
 # Serve static site from nginx
 FROM nginx:stable-alpine

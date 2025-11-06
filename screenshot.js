@@ -1,5 +1,4 @@
 import puppeteer from "puppeteer";
-import { join } from "node:path";
 import { setTimeout } from "node:timers/promises";
 
 (async () => {
@@ -24,11 +23,11 @@ import { setTimeout } from "node:timers/promises";
       console.log(`${request.failure().errorText} ${request.url()}`))
       
   await page.setBypassCSP(true);
-  await page.goto("http://<hostname>:6173");
+  await page.goto(process.env.IMAGE_URL);
   await page.setViewport({ width: 480, height: 280 });
   await setTimeout(10000);
   await page.screenshot({
-    path: join(__dirname, "images/dash.png"),
+    path: "/script/public/images/dash.png",
     type: "png",
   });
   await browser.close();
