@@ -1,1 +1,1 @@
-1,31 * * * * /usr/local/bin/node /script/screenshot.js > /proc/1/fd/1 2>/proc/1/fd/2
+1,31 * * * * cd ~/epd-sonarr-calendar && docker run -i --init --cap-add=SYS_ADMIN --rm -v ./public/images:./images ghcr.io/puppeteer/puppeteer:latest node -e "$(cat screenshot.js)" -e IMAGE_URL="http://<hostname>:6173/images/dash.png"

@@ -27,7 +27,7 @@ import { setTimeout } from "node:timers/promises";
   await page.setViewport({ width: 480, height: 280 });
   await setTimeout(10000);
   await page.screenshot({
-    path: "/script/public/images/dash.png",
+    path: "images/dash.png",
     type: "png",
   });
   await browser.close();
