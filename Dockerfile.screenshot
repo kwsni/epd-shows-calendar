@@ -1,6 +1,8 @@
 FROM ghcr.io/puppeteer/puppeteer:latest
 
+USER root
 RUN apt-get update && apt-get install -y cron
+USER pptruser
 
 WORKDIR /script
 ADD screenshot-cron /etc/cronjob
