@@ -1,10 +1,8 @@
 import puppeteer from "puppeteer";
-import { setTimeout } from "node:timers/promises";
 
 (async () => {
   const browser = await puppeteer.launch({
     product: "chrome",
-    executablePath: "/usr/bin/chromium-browser",
     args: [
       "--disable-web-security",
       "--ignore-certificate-errors",
@@ -25,9 +23,9 @@ import { setTimeout } from "node:timers/promises";
   await page.setBypassCSP(true);
   await page.goto(process.env.IMAGE_URL);
   await page.setViewport({ width: 480, height: 280 });
-  await setTimeout(10000);
+  await page.waitForSelector('img', {visible: true, timeout: 10000});
   await page.screenshot({
-    path: "images/dash.png",
+    path: "/images/dash.png",
     type: "png",
   });
   await browser.close();

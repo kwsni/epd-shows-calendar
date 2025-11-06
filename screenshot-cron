@@ -1,1 +1,1 @@
-1,31 * * * * cd ~/epd-sonarr-calendar && docker run -i --init --cap-add=SYS_ADMIN --rm -v ./public/images:./images ghcr.io/puppeteer/puppeteer:latest node -e "$(cat screenshot.js)" -e IMAGE_URL="http://<hostname>:6173/images/dash.png"
+0,30 * * * * cd ~/epd-sonarr-calendar && docker run -i --init --cap-add=SYS_ADMIN --rm -e TZ="America/Los_Angeles" -e IMAGE_URL="http://127.0.0.1:6173" -v ./public/images:/images ghcr.io/puppeteer/puppeteer:latest node -e "$(cat screenshot.js)"
