@@ -1,7 +1,7 @@
 FROM ghcr.io/puppeteer/puppeteer:latest
 
 ENV TZ=America/Los_Angeles
-ENV IMAGE_URL=http://client
+ENV IMAGE_URL=http://client/images/dash.png
 
 USER root
 RUN apt-get update && apt-get install -y fonts-noto-color-emoji
