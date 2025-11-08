@@ -3,15 +3,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.api
-    image: epd-sonarr-cal-api
+    image: epd-shows-cal-api
+    container_name: epd-shows-cal-api
     restart: unless-stopped
   client:
     build:
       context: .
       dockerfile: Dockerfile.client
-    image: epd-sonarr-cal-client
+    image: epd-shows-cal-client
+    container_name: epd-shows-cal-client
     restart: unless-stopped
     ports:
       - "6173:80"
     volumes:
       - ./public/images:/public/images
+networks:
+  default:
+    name: epd-shows-cal-network
