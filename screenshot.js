@@ -23,10 +23,16 @@ import puppeteer from "puppeteer";
   await page.setBypassCSP(true);
   await page.goto(process.env.IMAGE_URL);
   await page.setViewport({ width: 480, height: 280 });
-  await page.waitForSelector('img', {visible: true, timeout: 10000});
-  await page.screenshot({
-    path: "/images/dash.png",
-    type: "png",
-  });
-  await browser.close();
+  try {
+    await page.waitForSelector('img', {visible: true, timeout: 10000});
+  } catch {
+    console.log("Image failed to load, moving on...")
+  } finally {
+    await page.screenshot({
+      path: "/images/dash.png",
+      type: "png",
+    });
+    console.log("Screenshot saved!")
+    await browser.close();
+  }
 })();
